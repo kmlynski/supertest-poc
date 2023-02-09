@@ -13,4 +13,20 @@ describe("GET /users", () => {
 
     expect(response.statusCode).to.be.equal(expectedStatusCode);
   });
+
+  it("should return user with id 1", async () => {
+    const expectedUser = {
+      id: 1,
+      email: "Moses.Armstrong@Feest.ca",
+      firstname: "Moses",
+      lastname: "Armstrong",
+      password: "0Lelia39",
+    };
+
+    const response = await request(baseUrl)
+      .get("/api/users/1")
+      .set("User-Agent", "Chrome");
+
+    expect(response.body).to.deep.contains(expectedUser);
+  });
 });
