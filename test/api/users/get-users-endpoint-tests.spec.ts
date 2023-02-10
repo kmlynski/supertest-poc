@@ -13,7 +13,9 @@ describe("GET /users", () => {
 
     expect(response.statusCode).to.be.equal(expectedStatusCode);
   });
+});
 
+describe("GET /users/1", () => {
   it("should return user with id 1", async () => {
     const expectedUser = {
       id: 1,
@@ -24,7 +26,7 @@ describe("GET /users", () => {
     };
 
     const response = await request(baseUrl)
-      .get("/api/users/1")
+      .get(`/api/users/${expectedUser.id}`)
       .set("User-Agent", "Chrome");
 
     expect(response.body).to.deep.contains(expectedUser);
