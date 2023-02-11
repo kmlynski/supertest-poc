@@ -1,13 +1,12 @@
 import * as request from "supertest";
 import { expect } from "chai";
-
-const baseUrl = "https://glaze-dandelion-shamrock.glitch.me";
+import { baseURL } from "../../baseURL";
 
 describe("GET /articles", () => {
   it("should return status code 200", async () => {
     const expectedStatusCode = 200;
 
-    const response = await request(baseUrl)
+    const response = await request(baseURL)
       .get("/api/articles")
       .set("User-Agent", "Chrome");
 
@@ -24,7 +23,7 @@ describe("GET /articles/1", () => {
       date: "2021-07-13",
     };
 
-    const response = await request(baseUrl)
+    const response = await request(baseURL)
       .get(`/api/articles/${expectedArticle.id}`)
       .set("User-Agent", "Chrome");
 
