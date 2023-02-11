@@ -12,9 +12,7 @@ describe("GET /users", () => {
 
     expect(response.statusCode).to.be.equal(expectedStatusCode);
   });
-});
 
-describe("GET /users/1", () => {
   it("should return user with id 1", async () => {
     const expectedUser = {
       id: 1,

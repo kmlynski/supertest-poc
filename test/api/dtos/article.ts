@@ -5,7 +5,7 @@ export interface Article {
   title: string;
   body: string;
   date: string;
-  image: string;
+  image?: string;
 }
 
 export const getRandomArticle = (): Article => {

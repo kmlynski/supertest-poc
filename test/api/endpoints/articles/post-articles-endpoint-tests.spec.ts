@@ -25,4 +25,36 @@ describe("POST /articles", () => {
     expect(responseWithArticle.statusCode).to.be.equal(200);
     expect(responseWithArticle.body).to.contains(createdArticle);
   });
+  describe("empty fields", () => {
+    const emptyFields = ["user_id", "title", "body", "date"];
+    emptyFields.forEach((field) => {
+      it(`should not create article with empty ${field} `, async () => {
+        const expectedStatusCode = 422;
+        const articleWithEmptyField = {
+          ...getRandomArticle(),
+          [field]: "",
+        };
+
+        const getResponse = await request(baseURL)
+          .get("/api/articles")
+          .set("User-Agent", "Chrome");
+
+        const numberOfArticlesBefore = getResponse.body.length;
+        const response = await request(baseURL)
+          .post("/api/articles")
+          .send(articleWithEmptyField)
+          .set("User-Agent", "Chrome");
+
+        expect(response.statusCode).to.be.equal(expectedStatusCode);
+
+        const getResponseAfter = await request(baseURL)
+          .get("/api/articles")
+          .set("User-Agent", "Chrome");
+
+        const numberOfArticlesAfter = getResponseAfter.body.length;
+
+        expect(numberOfArticlesAfter).to.be.equal(numberOfArticlesBefore);
+      });
+    });
+  });
 });
