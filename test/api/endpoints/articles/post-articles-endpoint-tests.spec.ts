@@ -1,16 +1,16 @@
 import * as request from "supertest";
 import { expect } from "chai";
 import { baseURL } from "../../baseURL";
-import { getRandomUser } from "../../dtos/user";
+import { getRandomArticle } from "../../dtos/article";
 
-describe("POST /users", () => {
+describe("POST /articles", () => {
   it("should return status code 201", async () => {
     const expectedStatusCode = 201;
-    const createdUser = getRandomUser();
+    const createdArticle = getRandomArticle();
 
     const response = await request(baseURL)
-      .post("/api/users")
-      .send(createdUser)
+      .post("/api/articles")
+      .send(createdArticle)
       .set("User-Agent", "Chrome");
 
     expect(response.statusCode).to.be.equal(
@@ -18,11 +18,11 @@ describe("POST /users", () => {
       `Assertion failed on: ${JSON.stringify(response.body)}`
     );
 
-    const responseWithUser = await request(baseURL)
-      .get(`/api/users/${response.body.id}`)
+    const responseWithArticle = await request(baseURL)
+      .get(`/api/articles/${response.body.id}`)
       .set("User-Agent", "Chrome");
 
-    expect(responseWithUser.statusCode).to.be.equal(200);
-    expect(responseWithUser.body).to.contains(createdUser);
+    expect(responseWithArticle.statusCode).to.be.equal(200);
+    expect(responseWithArticle.body).to.contains(createdArticle);
   });
 });
