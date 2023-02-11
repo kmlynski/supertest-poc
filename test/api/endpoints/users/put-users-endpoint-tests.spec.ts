@@ -4,7 +4,7 @@ import { baseURL } from "../../baseURL";
 import { getRandomUser } from "../../dtos/user";
 
 describe("PUT /users", () => {
-  it.only("should update valid user", async () => {
+  it("should update valid user", async () => {
     const expectedStatusCode = 200;
     const userId = 2;
     const payload = getRandomUser();
