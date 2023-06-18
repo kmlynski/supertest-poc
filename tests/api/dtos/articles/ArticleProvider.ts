@@ -10,3 +10,17 @@ export const getRandomArticle = (): ArticlePostRequestDTO => {
     image: "\\data\\articles\\image_1591133479.7144732.jpg",
   };
 };
+
+export const articleBuilder = (object = getRandomArticle()) => {
+  return {
+    valueOf() {
+      return object;
+    },
+    withTitle(title: ArticlePostRequestDTO["title"]) {
+      return articleBuilder({ ...object, title });
+    },
+    withBody(body: ArticlePostRequestDTO["body"]) {
+      return articleBuilder({ ...object, body });
+    },
+  };
+};

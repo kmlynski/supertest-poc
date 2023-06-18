@@ -4,7 +4,7 @@ import {
   getArticleWithId,
 } from "./api/dtos/articles/GetArticlesRequest";
 import { createArticle } from "./api/dtos/articles/PostArticlesRequest";
-import { getRandomArticle } from "./api/dtos/articles/ArticleProvider";
+import { articleBuilder } from "./api/dtos/articles/ArticleProvider";
 import { Article } from "../test/api/dtos/article";
 import { ArticlePostRequestDTO } from "./api/dtos/types/Article";
 
@@ -19,7 +19,9 @@ test("GET /articles/${id}", async () => {
 });
 
 test("POST /articles", async () => {
-  const newArticle: ArticlePostRequestDTO = getRandomArticle();
+  const newArticle: ArticlePostRequestDTO = articleBuilder()
+    .withBody("customBody")
+    .valueOf();
   const response: Article = await createArticle(newArticle);
   Object.keys(response).forEach((key) => {
     expect(response).toHaveProperty(key);
